@@ -13,7 +13,8 @@ sqlite3orm
 月薪：  
 
 对象分析：  
-分析得出对象雇员的数据成员  
+分析得出对象雇员的数据成员 
+```cpp 
 	struct CEmployee   
 	{  
 		int ID;//工号：按雇员入职先后自动递增的唯一的数字编号标识。  
@@ -23,7 +24,8 @@ sqlite3orm
 		string IDCardNo;//省份证号  
 		string BirthPlace;//籍贯：  
 		double Salary;//月薪：  
-	};
+	}; 
+``` 
 数据存储：  
 假设使用Sqlite3数据库的雇员表存储上述雇员对象的数据信息。  
 我们会建一张Temployee表，表的字段如下：  
@@ -47,6 +49,7 @@ Salary：实数字段
 
 映射实现：  
 实现Cemployee的映射方法如下：  
+```cpp 
 	template<class T>  
 	void orm(T& t)  
 	{  
@@ -58,38 +61,49 @@ Salary：实数字段
 		t & ORM_COL(BirthPlace);  
 		t & ORM_COL(Salary);  
 	}  
-
+```
 业务：  
+```cpp 
 	#define DATABASE "Demo.db"  
 	#define TABLE "TEmployee"  
+```
 创建表  
+```cpp 
 	Sqlite3x sql(DATABASE);  
 	CEmployee p;  
-	sql.createTable(TABLE, TableSchema<CEmployee>(p));  
+	sql.createTable(TABLE, TableSchema<CEmployee>(p)); 
+``` 
 
 插入一条记录：  
+```cpp 
 	void EmployeeBP::InsertEmployee(CEmployee& e)  
 	{  
 		Sqlite3x sql(DATABASE);  
 		sql.insert(TABLE, e);  
 	}  
+```
 
-修改一条记录：  
+修改一条记录： 
+```cpp  
 	void EmployeeBP::UpdateEmployee(CEmployee& e)  
 	{  
 		Sqlite3x sql(DATABASE);  
 		sql.update(TABLE, e);  
 	}  
+```
 
 删除一条记录：  
+```cpp 
 	void EmployeeBP::DeleteEmployee(CEmployee& e)  
 	{  
 		Sqlite3x sql(DATABASE);  
 		sql.Delete(TABLE, e);  
 	}  
+```
 
 雇员信息查询：  
-//查询雇员数量  
+//查询雇员数量 
+```cpp  
 	int EmployeeBP::GetEmployeeCount()  
 	{  
 		int ret = 0;  
@@ -97,8 +111,10 @@ Salary：实数字段
 		sql.select("select count(1) from TEmployee", ret);  
 		return ret;  
 	}  
+```
 
 //查询所有的员工姓名  
+```cpp 
 	std::vector<string> EmployeeBP::GetAllEmployeeName()  
 	{  
 		std::vector<string> ret;  
@@ -106,8 +122,10 @@ Salary：实数字段
 		sql.select("select Name from TEmployee", ret);  
 		return ret;  
 	}  
+```
 
 //查询所有的员工身份证号和姓名  
+```cpp 
 	std::map<string, string> EmployeeBP::GetAllEmployeeIDcardAndName()  
 	{  
 		std::map<string, string> ret;  
@@ -115,8 +133,10 @@ Salary：实数字段
 		sql.select("select IDCardNo, Name from TEmployee", ret);  
 		return ret;  
 	}  
+```
 
 //查询月薪最高的前位雇员  
+```cpp 
 	std::vector<CEmployee> EmployeeBP::GetTop5SalaryEmployee()  
 	{  
 		std::vector<CEmployee> ret;  
@@ -124,9 +144,11 @@ Salary：实数字段
 		sql.select("select * from TEmployee ORDER BY Salary desc LIMIT 5", ret);  
 		//sql.select("select * from TEmployee ORDER BY Salary desc", ret, 5);  
 		return ret;  
-	}  
+	} 
+``` 
 
-//查询所有雇员的所有籍贯  
+//查询所有雇员的所有籍贯 
+```cpp  
 	std::set<string> EmployeeBP::GetAllEmployeeBirthPlace()  
 	{  
 		std::set<string> ret;  
@@ -135,13 +157,16 @@ Salary：实数字段
 		//sql.select("select BirthPlace from TEmployee", ret);  
 		return ret;  
 	}  
+```
 
 
 执行Sql:  
 //年龄>30的雇员加薪  
+```cpp 
 	void UpdateSalary()  
 	{  
 		Sqlite3x sql(DATABASE);  
 		string err;  
 		sql.exec("update TEmployee set Salary = Salary + 500 where Age > 30", err);  
 	}  
+```
