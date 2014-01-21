@@ -1,5 +1,7 @@
 sqlite3orm
 ==========
+Make simple things simpler
+---------
 应用示例  
 做一个雇员管理程序，实现对雇员信息的增加、修改、删除、查询。  
 
@@ -8,7 +10,7 @@ sqlite3orm
 姓名：雇员姓名，可以有重名雇员，不能为空。  
 性别：男或女，不能为空。  
 年龄：整数。  
-省份证号：唯一且不能为空。  
+身份证号：唯一且不能为空。  
 籍贯：  
 月薪：  
 
@@ -21,7 +23,7 @@ sqlite3orm
 		string Name;//姓名  
 		string Gender;//性别  
 		int Age;//年龄：整数。  
-		string IDCardNo;//省份证号  
+		string IDCardNo;//身份证号  
 		string BirthPlace;//籍贯：  
 		double Salary;//月薪：  
 	}; 
