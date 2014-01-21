@@ -1,6 +1,6 @@
 sqlite3orm
 ==========
-Make simple things simpler
+Make simple things simpler  
 ---------
 应用示例  
 做一个雇员管理程序，实现对雇员信息的增加、修改、删除、查询。  
