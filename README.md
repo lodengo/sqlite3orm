@@ -23,8 +23,7 @@ sqlite3orm
 		string IDCardNo;//省份证号  
 		string BirthPlace;//籍贯：  
 		double Salary;//月薪：  
-	};  
-
+	};
 数据存储：  
 假设使用Sqlite3数据库的雇员表存储上述雇员对象的数据信息。  
 我们会建一张Temployee表，表的字段如下：  
